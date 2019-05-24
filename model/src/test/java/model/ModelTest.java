@@ -50,4 +50,5 @@ public class ModelTest {
         this.model.loadHelloWorld("ID");
         Assert.assertEquals("Salamat pagi dunia", this.model.getHelloWorld().getMessage());
     }
+
 }
