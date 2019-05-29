@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 package contract;
 
 import java.util.Observable;
 
-import entity.HelloWorld;
+import entity.Map;
 
 /**
  * The Interface IModel.
@@ -17,7 +16,7 @@ public interface IModel {
 	 *
 	 * @return the helloworld entity
 	 */
-	HelloWorld getHelloWorld();
+	Map getMap();
 
 	/**
 	 * Load the message.
@@ -25,7 +24,7 @@ public interface IModel {
 	 * @param code
 	 *          the code
 	 */
-	void loadHelloWorld(String code);
+	void loadMap(String code);
 
 	/**
 	 * Gets the observable.
@@ -34,40 +33,4 @@ public interface IModel {
 	 */
 	Observable getObservable();
 }
-=======
-package contract;
 
-import java.util.Observable;
-
-import entity.HelloWorld;
-
-/**
- * The Interface IModel.
- *
- * @author Jean-Aymeric Diet
- */
-public interface IModel {
-
-	/**
-	 * Gets the hello world.
-	 *
-	 * @return the helloworld entity
-	 */
-	HelloWorld getHelloWorld();
-
-	/**
-	 * Load the message.
-	 *
-	 * @param code
-	 *          the code
-	 */
-	void loadHelloWorld(String code);
-
-	/**
-	 * Gets the observable.
-	 *
-	 * @return the observable
-	 */
-	Observable getObservable();
-}
->>>>>>> refs/remotes/origin/master

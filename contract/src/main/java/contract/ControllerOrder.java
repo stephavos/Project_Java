@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package contract;
 
 /**
@@ -8,32 +7,15 @@ package contract;
  */
 public enum ControllerOrder {
 
-	/** The English. */
-	English,
-	/** The French. */
-	Francais,
-	/** The Deutch. */
-	Deutsch,
-	/** The Indonesia. */
-	Indonesia
-}
-=======
-package contract;
 
-/**
- * The Enum ControllerOrder.
- *
- * @author Jean-Aymeric Diet
- */
-public enum ControllerOrder {
+	niveau_1,
 
-	/** The English. */
-	English,
-	/** The French. */
-	Francais,
-	/** The Deutch. */
-	Deutsch,
-	/** The Indonesia. */
-	Indonesia
+	niveau_2,
+
+	niveau_3,
+
+	niveau_4,
+	
+	niveau_5
 }
->>>>>>> refs/remotes/origin/master
+

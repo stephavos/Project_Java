@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package model;
 
 import java.sql.CallableStatement;
@@ -6,14 +5,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import entity.HelloWorld;
+import entity.Map;
 
 /**
  * The Class DAOHelloWorld.
  *
  * @author Jean-Aymeric Diet
  */
-class DAOHelloWorld extends DAOEntity<HelloWorld> {
+class DAOHelloWorld extends DAOEntity<Map> {
 
 	/**
 	 * Instantiates a new DAO hello world.
@@ -33,7 +32,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#create(model.Entity)
 	 */
 	@Override
-	public boolean create(final HelloWorld entity) {
+	public boolean create(final Map entity) {
 		// Not implemented
 		return false;
 	}
@@ -44,7 +43,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#delete(model.Entity)
 	 */
 	@Override
-	public boolean delete(final HelloWorld entity) {
+	public boolean delete(final Map entity) {
 		// Not implemented
 		return false;
 	}
@@ -55,7 +54,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#update(model.Entity)
 	 */
 	@Override
-	public boolean update(final HelloWorld entity) {
+	public boolean update(final Map entity) {
 		// Not implemented
 		return false;
 	}
@@ -66,8 +65,8 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#find(int)
 	 */
 	@Override
-	public HelloWorld find(final int id) {
-		HelloWorld helloWorld = new HelloWorld();
+	public Map find(final int id) {
+		Map helloWorld = new Map();
 
 		try {
 			final String sql = "{call helloworldById(?)}";
@@ -76,7 +75,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 			call.execute();
 			final ResultSet resultSet = call.getResultSet();
 			if (resultSet.first()) {
-				helloWorld = new HelloWorld(id, resultSet.getString("code"), resultSet.getString("message"));
+				helloWorld = new Map(id, resultSet.getString("code"), resultSet.getString("message"));
 			}
 			return helloWorld;
 		} catch (final SQLException e) {
@@ -91,8 +90,8 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @see model.DAOEntity#find(java.lang.String)
 	 */
 	@Override
-	public HelloWorld find(final String code) {
-		HelloWorld helloWorld = new HelloWorld();
+	public Map find(final String code) {
+		Map Map = new Map();
 
 		try {
 			final String sql = "{call helloworldByCode(?)}";
@@ -101,9 +100,9 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 			call.execute();
 			final ResultSet resultSet = call.getResultSet();
 			if (resultSet.first()) {
-				helloWorld = new HelloWorld(resultSet.getInt("id"), code, resultSet.getString("message"));
+				Map = new Map(resultSet.getInt("id"), code, resultSet.getString("message"));
 			}
-			return helloWorld;
+			return Map;
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
@@ -111,117 +110,3 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	}
 
 }
-=======
-package model;
-
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import entity.HelloWorld;
-
-/**
- * The Class DAOHelloWorld.
- *
- * @author Jean-Aymeric Diet
- */
-class DAOHelloWorld extends DAOEntity<HelloWorld> {
-
-	/**
-	 * Instantiates a new DAO hello world.
-	 *
-	 * @param connection
-	 *          the connection
-	 * @throws SQLException
-	 *           the SQL exception
-	 */
-	public DAOHelloWorld(final Connection connection) throws SQLException {
-		super(connection);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#create(model.Entity)
-	 */
-	@Override
-	public boolean create(final HelloWorld entity) {
-		// Not implemented
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#delete(model.Entity)
-	 */
-	@Override
-	public boolean delete(final HelloWorld entity) {
-		// Not implemented
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#update(model.Entity)
-	 */
-	@Override
-	public boolean update(final HelloWorld entity) {
-		// Not implemented
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#find(int)
-	 */
-	@Override
-	public HelloWorld find(final int id) {
-		HelloWorld helloWorld = new HelloWorld();
-
-		try {
-			final String sql = "{call helloworldById(?)}";
-			final CallableStatement call = this.getConnection().prepareCall(sql);
-			call.setInt(1, id);
-			call.execute();
-			final ResultSet resultSet = call.getResultSet();
-			if (resultSet.first()) {
-				helloWorld = new HelloWorld(id, resultSet.getString("code"), resultSet.getString("message"));
-			}
-			return helloWorld;
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#find(java.lang.String)
-	 */
-	@Override
-	public HelloWorld find(final String code) {
-		HelloWorld helloWorld = new HelloWorld();
-
-		try {
-			final String sql = "{call helloworldByCode(?)}";
-			final CallableStatement call = this.getConnection().prepareCall(sql);
-			call.setString(1, code);
-			call.execute();
-			final ResultSet resultSet = call.getResultSet();
-			if (resultSet.first()) {
-				helloWorld = new HelloWorld(resultSet.getInt("id"), code, resultSet.getString("message"));
-			}
-			return helloWorld;
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-}
->>>>>>> refs/remotes/origin/master

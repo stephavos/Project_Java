@@ -29,7 +29,7 @@ public final class BDDConnectorBoulderDash {
 	private Connection connection;
 	
 	/** The statement. */
-	private Statement statement; 
+	private static Statement statement; 
 	
 	/**
 	 * Instantiates a new BDD connector boulder dash.
@@ -67,7 +67,7 @@ public final class BDDConnectorBoulderDash {
 	private boolean open() {
 		try {
 			this.connection = DriverManager.getConnection(BDDConnectorBoulderDash.URL, BDDConnectorBoulderDash.USER, BDDConnectorBoulderDash.PASSWORD);
-			this.statement = this.connection.createStatement();
+			this.setStatement(this.connection.createStatement());
 			return true;
 		}
 		
@@ -88,34 +88,13 @@ public final class BDDConnectorBoulderDash {
 	 */
 	public ResultSet executeQuery(final String query) {
 		try {
-			return this.getstatement().executeQuery(query);
+			return this.getStatement().executeQuery(query);
 		}
 		catch (final SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
-	/**
-	 * Gets the statement.
-	 *
-	 * @return the statement
-	 */
-	private Statement getstatement() {
-		// TODO Auto-generated method stub
-		return this.statement;
-	}
-
-	/**
-	 * Sets the sstatement.
-	 *
-	 * @param statement the new sstatement
-	 */
-	public void setSstatement(final Statement statement){
-		this.statement = statement;
-	}
-	
-	
 	
 	/**
 	 * Prepare call.
@@ -160,12 +139,20 @@ public final class BDDConnectorBoulderDash {
 	 */
 	public int executeUpdate(final String query) {
 		try {
-			return this.statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			return this.getStatement().executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 		}
 		catch (final SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public Statement getStatement() {
+		return statement;
+	}
+
+	public void setStatement(Statement statement) {
+		BDDConnectorBoulderDash.statement = statement;
 	}
 
 }
