@@ -39,8 +39,8 @@ class ViewPanel extends JPanel implements Observer {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		GameObject[] temp = this.getViewFrame().getModel().getMap();
 		Image tempImage = null;
-		graphics.setColor(Color.WHITE);
-		Font font = new Font("Arial",0, 20);
+		graphics.setColor(Color.RED);
+		Font font = new Font("Arial",0, 30);
 		graphics.setFont(font);
 
 		for(int i = 0; i < 256; i++) {
@@ -100,7 +100,7 @@ class ViewPanel extends JPanel implements Observer {
 
 			graphics.drawImage(tempImage, temp[i].getPosX()  * 16 * 3, temp[i].getPosY() * 16 * 3, 48, 48, null);
 		}
-		graphics.drawString(String.valueOf(this.getViewFrame().getModel().getDiamondCount()),16,16);
+		graphics.drawString(String.valueOf(this.getViewFrame().getModel().getDiamondCount()),32,32);
         this.repaint();
 	}
 }
