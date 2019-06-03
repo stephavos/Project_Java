@@ -1,70 +1,106 @@
 package view;
 
-import java.awt.Graphics;
+import entity.GameObject;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JPanel;
-
-/**
- * The Class ViewPanel.
- *
- * @author Jean-Aymeric Diet
- */
 class ViewPanel extends JPanel implements Observer {
 
-	/** The view frame. */
-	private ViewFrame					viewFrame;
-	/** The Constant serialVersionUID. */
-	private static final long	serialVersionUID	= -998294702363713521L;
+    private static final long serialVersionUID = 6900100437818927999L;
+    private ViewFrame					viewFrame;
 
-	/**
-	 * Instantiates a new view panel.
-	 *
-	 * @param viewFrame
-	 *          the view frame
-	 */
 	public ViewPanel(final ViewFrame viewFrame) {
 		this.setViewFrame(viewFrame);
-		viewFrame.getModel().getObservable().addObserver(this);
+		viewFrame.getModel().getMap();
 	}
 
-	/**
-	 * Gets the view frame.
-	 *
-	 * @return the view frame
-	 */
 	private ViewFrame getViewFrame() {
 		return this.viewFrame;
 	}
 
-	/**
-	 * Sets the view frame.
-	 *
-	 * @param viewFrame
-	 *          the new view frame
-	 */
 	private void setViewFrame(final ViewFrame viewFrame) {
 		this.viewFrame = viewFrame;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
 	public void update(final Observable arg0, final Object arg1) {
 		this.repaint();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
 	@Override
 	protected void paintComponent(final Graphics graphics) {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.drawString(this.getViewFrame().getModel().getHelloWorld().getMessage(), 10, 20);
+		GameObject[] temp = this.getViewFrame().getModel().getMap();
+		Image tempImage = null;
+		graphics.setColor(Color.RED);
+		Font font = new Font("Arial",0, 30);
+		graphics.setFont(font);
+
+		for(int i = 0; i < 256; i++) {
+
+			switch (temp[i].getName()){
+				case "W":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Wall.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "d":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Dirt.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "X":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Enemy.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "o":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Digged.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "@":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Rock.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "H":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Player.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case "g":
+					try {
+						tempImage = ImageIO.read(new File("./textures/base/Diamond.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+
+			}
+
+			graphics.drawImage(tempImage, temp[i].getPosX()  * 16 * 3, temp[i].getPosY() * 16 * 3, 48, 48, null);
+		}
+		graphics.drawString(String.valueOf(this.getViewFrame().getModel().getDiamondCount()),32,32);
+        this.repaint();
 	}
 }
