@@ -3,8 +3,8 @@ package controller;
 
 import contract.controller.ControllerOrder;
 import contract.controller.IController;
-import contract.model.*;
 import contract.view.IView;
+import contract.model.IModel;
 
 
 public class Controller implements IController {
@@ -25,6 +25,15 @@ public class Controller implements IController {
     public IModel getModel() {
         return this.model;
     }
+
+    public void gameLoop(){
+        while(true) {
+            this.getModel().monsterMove();
+            this.getModel().fallingRockDia();
+            System.out.println(this.getModel().isAlive());
+        }
+    }
+
 
     public void orderPerform(final ControllerOrder controllerOrder) {
         switch (controllerOrder) {

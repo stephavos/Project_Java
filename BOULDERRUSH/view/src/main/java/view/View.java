@@ -19,7 +19,6 @@ public final class View implements Runnable, IView {
 	}
 
 	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) {
-		System.out.println("keyCOdeto order");
 		switch (keyCode) {
 			case KeyEvent.VK_Z:
 				return ControllerOrder.UP;

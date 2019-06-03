@@ -39,55 +39,58 @@ class ViewPanel extends JPanel implements Observer {
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		GameObject[] temp = this.getViewFrame().getModel().getMap();
 		Image tempImage = null;
+		graphics.setColor(Color.WHITE);
+		Font font = new Font("Arial",0, 20);
+		graphics.setFont(font);
 
 		for(int i = 0; i < 256; i++) {
 
 			switch (temp[i].getName()){
 				case "W":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Wall.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Wall.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "d":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Dirt.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Dirt.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "X":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Enemy.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Enemy.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "o":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Digged.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Digged.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "@":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Rock.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Rock.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "H":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Player.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Player.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "g":
 					try {
-						tempImage = ImageIO.read(new File("./textures/Diamond.png"));
+						tempImage = ImageIO.read(new File("./textures/base/Diamond.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -97,7 +100,7 @@ class ViewPanel extends JPanel implements Observer {
 
 			graphics.drawImage(tempImage, temp[i].getPosX()  * 16 * 3, temp[i].getPosY() * 16 * 3, 48, 48, null);
 		}
-
+		graphics.drawString(String.valueOf(this.getViewFrame().getModel().getDiamondCount()),16,16);
         this.repaint();
 	}
 }

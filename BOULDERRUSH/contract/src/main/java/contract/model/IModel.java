@@ -8,4 +8,9 @@ public interface IModel {
     int getID();
     void setID(int ID);
     void Move(String dir);
+    void monsterMove();
+    void fallingRockDia();
+    int getDiamondCount();
+    void setAlive(boolean alive);
+    boolean isAlive();
 }

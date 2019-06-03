@@ -9,21 +9,10 @@ import model.dao.DBConnection;
 import entity.GameObject;
 import entity.HelloWorld;
 
-/**
- * The Class DAOHelloWorld.
- *
- * @author Jean-Aymeric Diet
- */
 public class DAOHelloWorld {
 
 	private Connection connection;
 
-	/**
-	 * Instantiates a new DAO hello world.
-	 *
-	 * @param connection the connection
-	 * @throws SQLException the SQL exception
-	 */
 	public DAOHelloWorld(final Connection connection) throws SQLException {
 		this.connection = connection;
 	}

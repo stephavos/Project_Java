@@ -66,6 +66,8 @@ class ViewFrame extends JFrame implements KeyListener{
 		this.setLocationRelativeTo(null);
 	}
 
+	public void closeGame(){
+	}
 
 	public void printMessage(final String message) {
 		JOptionPane.showMessageDialog(null, message);
