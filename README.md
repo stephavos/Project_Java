@@ -1,7 +1,7 @@
 <<<<<<< HEAD
-# JPU-BlankProject
+# Boulder Dash 
 
-Base de démarrage pour le projet Jave/POO/UML des 1ières années Exia-Cesi
+Projet Java Boulder Dash with Maven, MVC architecture and database
 =======
 # Project_Java
 >>>>>>> refs/remotes/origin/master
