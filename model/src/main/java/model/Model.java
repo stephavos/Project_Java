@@ -1,173 +1,208 @@
-<<<<<<< HEAD
 package model;
 
 import java.sql.SQLException;
-import java.util.Observable;
 
-import contract.IModel;
-import entity.HelloWorld;
+import contract.model.IModel;
+import entity.GameObject;
+import model.dao.*;
 
-/**
- * The Class Model.
- *
- * @author Jean-Aymeric Diet
- */
-public final class Model extends Observable implements IModel {
+import static java.lang.Thread.sleep;
 
-	/** The helloWorld. */
-	private HelloWorld helloWorld;
+public class Model implements IModel {
 
-	/**
-	 * Instantiates a new model.
-	 */
-	public Model() {
-		this.helloWorld = new HelloWorld();
-	}
+    private boolean isAlive = true;
 
-	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
-	}
+    public boolean isAlive() {
+        return isAlive;
+    }
 
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}
+    @Override
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
 
-	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-	}
+    private int DiamondCount = 0;
+    private GameObject[] map;
+    private int ID = 1;
+    private DAOHelloWorld dao = new DAOHelloWorld(DBConnection.getInstance().getConnection());
 
-	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
-	public Observable getObservable() {
-		return this;
-	}
+    public Model() throws SQLException {
+        this.map = dao.getMap(this.ID);
+    }
+
+    public GameObject[] getMap() {
+        return this.map;
+    }
+
+    public void monsterMove(){
+        int randomMove = 0;
+        for(int k = 0; k < 256; k++ ){
+            if(this.map[k].getName().equals("X")){
+                randomMove = (int) (Math.random() * 4);
+                switch (randomMove){
+                    case 1:
+                        if(this.map[k-1].getName().equals("o")) {
+                            this.map[k-1].setName("X");
+                            this.map[k].setName("o");
+                            if(this.map[k-1].getName().equals("H")){
+                                setAlive(false);
+
+                            }
+                        }
+                        break;
+                    case 2:
+                        if(this.map[k+1].getName().equals("o")) {
+                            this.map[k+1].setName("X");
+                            this.map[k].setName("o");
+                            if(this.map[k+1].getName().equals("H")){
+                                setAlive(false);
+                            }
+                        }
+                        break;
+
+                    case 3:
+                        if(this.map[k+16].getName().equals("o")) {
+                            this.map[k+16].setName("X");
+                            this.map[k].setName("o");
+                            if(this.map[k+16].getName().equals("H")){
+                                setAlive(false);
+                            }
+                        }
+                        break;
+                    case 4:
+                        if(this.map[k-16].getName().equals("o")) {
+                            this.map[k-16].setName("X");
+                            this.map[k].setName("o");
+                            if(this.map[k-16].getName().equals("H")){
+                                setAlive(false);
+                            }
+                        }
+                        break;
+                    case 5 :
+                        break;
+
+                }
+                try {
+                    sleep(150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
+        }
+    }
+
+    public void Move(String dir){
+
+        int index = 0;
+        for(int i = 0; i < 256; i++){
+            if(this.map[i].getName().equals("H")) {
+                index = i;
+            }
+        }
+
+        switch (dir){
+            case "UP":
+                if(this.map[index-1].getName().equals("d") || this.map[index-1].getName().equals("g") || this.map[index-1].getName().equals("o")) {
+                    if(this.map[index-1].getName().equals("g")){
+                        this.DiamondCount++;
+                    }
+                    if(this.map[index-1].getName().equals("X")){
+                        setAlive(false);
+                    }
+                    this.map[index-1].setName("H");
+                    this.map[index].setName("o");
+                }
+                break;
+            case "DOWN":
+                if(this.map[index+1].getName().equals("d") || this.map[index+1].getName().equals("g") || this.map[index+1].getName().equals("o")) {
+                    if(this.map[index+1].getName().equals("g")){
+                        this.DiamondCount++;
+                    }
+                    if(this.map[index+1].getName().equals("X")){
+                        setAlive(false);
+                    }
+                    this.map[index+1].setName("H");
+                    this.map[index].setName("o");
+                }
+                break;
+            case "RIGHT":
+                if(this.map[index+16].getName().equals("d") || this.map[index+16].getName().equals("g") || this.map[index+16].getName().equals("o")) {
+                    if(this.map[index+16].getName().equals("g")){
+                        this.DiamondCount++;
+                    }
+                    if(this.map[index+16].getName().equals("X")){
+                        setAlive(false);
+                    }
+                    this.map[index+16].setName("H");
+                    this.map[index].setName("o");
+                }
+                else if(this.map[index+16].getName().equals("@")){
+                    if (this.map[index+32].getName().equals("o")){
+                        this.map[index].setName("o");
+                        this.map[index+16].setName("H");
+                        this.map[index+32].setName("@");
+                    }
+                }
+                break;
+            case "LEFT":
+                if(this.map[index-16].getName().equals("d") || this.map[index-16].getName().equals("g") || this.map[index-16].getName().equals("o")) {
+                    if(this.map[index-16].getName().equals("g")){
+                        this.DiamondCount++;
+                    }
+                    if(this.map[index-16].getName().equals("X")){
+                        setAlive(false);
+                    }
+                    this.map[index-16].setName("H");
+                    this.map[index].setName("o");
+                }
+                else if(this.map[index-16].getName().equals("@")){
+                    if (this.map[index-32].getName().equals("o")){
+                        this.map[index].setName("o");
+                        this.map[index-16].setName("H");
+                        this.map[index-32].setName("@");
+                    }
+                }
+                break;
+            case "NUL":
+                break;
+
+        }
+    }
+
+    public void fallingRockDia() {
+        for (int z = 255; z >= 0; z--) {
+            if (this.map[z].getName().equals("@")) {
+                if (this.map[z + 1].getName().equals("o")) {
+                    this.map[z + 1].setName("@");
+                    this.map[z].setName("o");
+                }
+            }
+            if (this.map[z].getName().equals("g")) {
+                if (this.map[z + 1].getName().equals("o")) {
+                    this.map[z + 1].setName("g");
+                    this.map[z].setName("o");
+                }
+            }
+        }
+    }
+
+
+    public int getDiamondCount(){
+        return this.DiamondCount;
+    }
+    public void setMap(GameObject[] map) {
+        this.map = map;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 }
-=======
-package model;
-
-import java.sql.SQLException;
-import java.util.Observable;
-
-import contract.IModel;
-import entity.HelloWorld;
-
-/**
- * The Class Model.
- *
- * @author Jean-Aymeric Diet
- */
-public final class Model extends Observable implements IModel {
-
-	/** The helloWorld. */
-	private HelloWorld helloWorld;
-
-	/**
-	 * Instantiates a new model.
-	 */
-	public Model() {
-		this.helloWorld = new HelloWorld();
-	}
-
-	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
-	}
-
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-     * Gets the observable.
-     *
-     * @return the observable
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
-	public Observable getObservable() {
-		return this;
-	}
-}
->>>>>>> refs/remotes/origin/master

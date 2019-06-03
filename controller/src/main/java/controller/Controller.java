@@ -1,191 +1,60 @@
-<<<<<<< HEAD
 package controller;
 
-import contract.ControllerOrder;
-import contract.IController;
-import contract.IModel;
-import contract.IView;
 
-/**
- * The Class Controller.
- */
-public final class Controller implements IController {
+import contract.controller.ControllerOrder;
+import contract.controller.IController;
+import contract.view.IView;
+import contract.model.IModel;
 
-	/** The view. */
-	private IView		view;
 
-	/** The model. */
-	private IModel	model;
+public class Controller implements IController {
 
-	/**
-	 * Instantiates a new controller.
-	 *
-	 * @param view
-	 *          the view
-	 * @param model
-	 *          the model
-	 */
-	public Controller(final IView view, final IModel model) {
-		this.setView(view);
-		this.setModel(model);
-	}
+    private final IView  view;
 
-	/**
-     * Control.
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#control()
-	 */
-	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
-	}
+    private final IModel model;
 
-	/**
-     * Sets the view.
-     *
-     * @param pview
-     *            the new view
-     */
-	private void setView(final IView pview) {
-		this.view = pview;
-	}
+    public Controller(final IView view, final IModel model) {
+        this.view = view;
+        this.model = model;
+    }
 
-	/**
-	 * Sets the model.
-	 *
-	 * @param model
-	 *          the new model
-	 */
-	private void setModel(final IModel model) {
-		this.model = model;
-	}
+    public IView getView() {
+        return this.view;
+    }
 
-	/**
-     * Order perform.
-     *
-     * @param controllerOrder
-     *            the controller order
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#orderPerform(contract.ControllerOrder)
-	 */
-	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
-			case English:
-				this.model.loadHelloWorld("GB");
-				break;
-			case Francais:
-				this.model.loadHelloWorld("FR");
-				break;
-			case Deutsch:
-				this.model.loadHelloWorld("DE");
-				break;
-			case Indonesia:
-				this.model.loadHelloWorld("ID");
-				break;
-			default:
-				break;
-		}
-	}
+    public IModel getModel() {
+        return this.model;
+    }
+
+    public void gameLoop(){
+        while(true) {
+            this.getModel().monsterMove();
+            this.getModel().fallingRockDia();
+            System.out.println(this.getModel().isAlive());
+        }
+    }
+
+
+    public void orderPerform(final ControllerOrder controllerOrder) {
+        switch (controllerOrder) {
+            case UP:
+                this.model.Move("UP");
+                break;
+            case DOWN:
+                this.model.Move("DOWN");
+                break;
+            case RIGHT:
+                this.model.Move("RIGHT");
+                break;
+            case LEFT:
+                this.model.Move("LEFT");
+                break;
+            default:
+                break;
+        }
+    }
+
+
 
 }
-=======
-package controller;
 
-import contract.ControllerOrder;
-import contract.IController;
-import contract.IModel;
-import contract.IView;
-
-/**
- * The Class Controller.
- */
-public final class Controller implements IController {
-
-	/** The view. */
-	private IView		view;
-
-	/** The model. */
-	private IModel	model;
-
-	/**
-	 * Instantiates a new controller.
-	 *
-	 * @param view
-	 *          the view
-	 * @param model
-	 *          the model
-	 */
-	public Controller(final IView view, final IModel model) {
-		this.setView(view);
-		this.setModel(model);
-	}
-
-	/**
-     * Control.
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#control()
-	 */
-	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
-	}
-
-	/**
-     * Sets the view.
-     *
-     * @param pview
-     *            the new view
-     */
-	private void setView(final IView pview) {
-		this.view = pview;
-	}
-
-	/**
-	 * Sets the model.
-	 *
-	 * @param model
-	 *          the new model
-	 */
-	private void setModel(final IModel model) {
-		this.model = model;
-	}
-
-	/**
-     * Order perform.
-     *
-     * @param controllerOrder
-     *            the controller order
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IController#orderPerform(contract.ControllerOrder)
-	 */
-	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
-			case English:
-				this.model.loadHelloWorld("GB");
-				break;
-			case Francais:
-				this.model.loadHelloWorld("FR");
-				break;
-			case Deutsch:
-				this.model.loadHelloWorld("DE");
-				break;
-			case Indonesia:
-				this.model.loadHelloWorld("ID");
-				break;
-			default:
-				break;
-		}
-	}
-
-}
->>>>>>> refs/remotes/origin/master

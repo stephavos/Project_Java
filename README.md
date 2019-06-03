@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-# Boulder Dash 
+# JPU-BlankProject
 
-Java Project : Boulder Dash with Maven, MVC architecture and database
-
-Group 12
-=======
-# Project_Java
->>>>>>> refs/remotes/origin/master
+Base de démarrage pour le projet Jave/POO/UML des 1ières années Exia-Cesi
