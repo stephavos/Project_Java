@@ -17,6 +17,26 @@ public class DAOHelloWorld {
 		this.connection = connection;
 	}
 
+	public int getLar(int id){
+		try {
+			final String sql = "{call getLar(?)}";
+			final CallableStatement call = this.connection.prepareCall(sql);
+			call.setInt(1, id);
+			call.execute();
+			final ResultSet resultSet = call.getResultSet();
+			if(resultSet.first()) {
+				return resultSet.getInt("compte");
+			} else {
+				return 0;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 
 	public GameObject[] getMap(final int id) {
 

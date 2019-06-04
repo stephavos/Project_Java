@@ -5,6 +5,7 @@ import contract.controller.ControllerOrder;
 import contract.controller.IController;
 import contract.view.IView;
 import contract.model.IModel;
+import entity.GameObject;
 
 
 public class Controller implements IController {
@@ -36,6 +37,7 @@ public class Controller implements IController {
 
 
     public void orderPerform(final ControllerOrder controllerOrder) {
+
         switch (controllerOrder) {
             case UP:
                 this.model.Move("UP");
