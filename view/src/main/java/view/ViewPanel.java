@@ -48,49 +48,49 @@ class ViewPanel extends JPanel implements Observer {
 			switch (temp[i].getName()){
 				case "W":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Wall.png"));
+						tempImage = ImageIO.read(new File("./base/Wall.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "d":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Dirt.png"));
+						tempImage = ImageIO.read(new File("./base/Dirt.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "X":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Enemy.png"));
+						tempImage = ImageIO.read(new File("./base/Enemy.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "o":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Digged.png"));
+						tempImage = ImageIO.read(new File("./base/Digged.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "@":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Rock.png"));
+						tempImage = ImageIO.read(new File("./base/Rock.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "H":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Player.png"));
+						tempImage = ImageIO.read(new File("./base/Player.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					break;
 				case "g":
 					try {
-						tempImage = ImageIO.read(new File("./textures/base/Diamond.png"));
+						tempImage = ImageIO.read(new File("./base/Diamond.png"));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -102,5 +102,10 @@ class ViewPanel extends JPanel implements Observer {
 		}
 		graphics.drawString(String.valueOf(this.getViewFrame().getModel().getDiamondCount()),32,32);
         this.repaint();
+		try {
+			Thread.sleep(6);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

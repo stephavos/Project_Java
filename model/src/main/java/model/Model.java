@@ -35,8 +35,10 @@ public class Model implements IModel {
     }
 
     public void monsterMove(){
+        int lar = this.dao.getLar(this.ID);
+
         int randomMove = 0;
-        for(int k = 0; k < 256; k++ ){
+        for(int k = 0; k < lar*lar; k++ ){
             if(this.map[k].getName().equals("X")){
                 randomMove = (int) (Math.random() * 4);
                 switch (randomMove){
@@ -61,19 +63,19 @@ public class Model implements IModel {
                         break;
 
                     case 3:
-                        if(this.map[k+16].getName().equals("o")) {
-                            this.map[k+16].setName("X");
+                        if(this.map[k+lar].getName().equals("o")) {
+                            this.map[k+lar].setName("X");
                             this.map[k].setName("o");
-                            if(this.map[k+16].getName().equals("H")){
+                            if(this.map[k+lar].getName().equals("H")){
                                 setAlive(false);
                             }
                         }
                         break;
                     case 4:
-                        if(this.map[k-16].getName().equals("o")) {
-                            this.map[k-16].setName("X");
+                        if(this.map[k-lar].getName().equals("o")) {
+                            this.map[k-lar].setName("X");
                             this.map[k].setName("o");
-                            if(this.map[k-16].getName().equals("H")){
+                            if(this.map[k-lar].getName().equals("H")){
                                 setAlive(false);
                             }
                         }
@@ -96,9 +98,12 @@ public class Model implements IModel {
     }
 
     public void Move(String dir){
+        int lar = this.dao.getLar(this.ID);
 
+
+System.out.println(lar);
         int index = 0;
-        for(int i = 0; i < 256; i++){
+        for(int i = 0; i < lar*lar; i++){
             if(this.map[i].getName().equals("H")) {
                 index = i;
             }
@@ -130,40 +135,40 @@ public class Model implements IModel {
                 }
                 break;
             case "RIGHT":
-                if(this.map[index+16].getName().equals("d") || this.map[index+16].getName().equals("g") || this.map[index+16].getName().equals("o")) {
-                    if(this.map[index+16].getName().equals("g")){
+                if(this.map[index+lar].getName().equals("d") || this.map[index+lar].getName().equals("g") || this.map[index+lar].getName().equals("o")) {
+                    if(this.map[index+lar].getName().equals("g")){
                         this.DiamondCount++;
                     }
-                    if(this.map[index+16].getName().equals("X")){
+                    if(this.map[index+lar].getName().equals("X")){
                         setAlive(false);
                     }
-                    this.map[index+16].setName("H");
+                    this.map[index+lar].setName("H");
                     this.map[index].setName("o");
                 }
-                else if(this.map[index+16].getName().equals("@")){
-                    if (this.map[index+32].getName().equals("o")){
+                else if(this.map[index+lar].getName().equals("@")){
+                    if (this.map[index+lar*2].getName().equals("o")){
                         this.map[index].setName("o");
-                        this.map[index+16].setName("H");
-                        this.map[index+32].setName("@");
+                        this.map[index+lar].setName("H");
+                        this.map[index+lar*2].setName("@");
                     }
                 }
                 break;
             case "LEFT":
-                if(this.map[index-16].getName().equals("d") || this.map[index-16].getName().equals("g") || this.map[index-16].getName().equals("o")) {
-                    if(this.map[index-16].getName().equals("g")){
+                if(this.map[index-lar].getName().equals("d") || this.map[index-lar].getName().equals("g") || this.map[index-lar].getName().equals("o")) {
+                    if(this.map[index-lar].getName().equals("g")){
                         this.DiamondCount++;
                     }
-                    if(this.map[index-16].getName().equals("X")){
+                    if(this.map[index-lar].getName().equals("X")){
                         setAlive(false);
                     }
-                    this.map[index-16].setName("H");
+                    this.map[index-lar].setName("H");
                     this.map[index].setName("o");
                 }
-                else if(this.map[index-16].getName().equals("@")){
-                    if (this.map[index-32].getName().equals("o")){
+                else if(this.map[index-lar].getName().equals("@")){
+                    if (this.map[index-lar*2].getName().equals("o")){
                         this.map[index].setName("o");
-                        this.map[index-16].setName("H");
-                        this.map[index-32].setName("@");
+                        this.map[index-lar].setName("H");
+                        this.map[index-lar].setName("@");
                     }
                 }
                 break;
